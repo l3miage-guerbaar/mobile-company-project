@@ -1,17 +1,17 @@
-import React, {useEffect, useState} from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import DetailsVille from '../components/DetailsVille';
 import Previsions from '../components/Previsions';
-import {ForecastData, Ville, WeatherData} from "../types/types";
-import {WEATHER_API_KEY, WEATHER_API_URL} from "../Api";
+import { ForecastData, Ville, WeatherData, NewsData } from "../types/types";
+import { WEATHER_API_KEY, WEATHER_API_URL, NEWS_API_KEY, NEWS_API_URL } from "../Api";
 import Actualite from "../components/Actualites";
 
-const Resultats = ({route}: any) => {
+const Resultats = ({ route }: any) => {
     const [activeTab, setActiveTab] = useState('previsions');
-    const {ville, weatherData} = route.params;
+    const { ville, weatherData } = route.params;
     const [forecastData, setForecastData] = useState<ForecastData>({
         city: {
-            coord: {lat: 0, lon: 0},
+            coord: { lat: 0, lon: 0 },
             country: "",
             id: 0,
             name: "",
@@ -21,9 +21,18 @@ const Resultats = ({route}: any) => {
             timezone: 0
         }, cnt: 0, cod: "", list: [], message: 0
     });
+    const [newsData, setNewsData] = useState<NewsData>({
+        status: "",
+        totalResults: 0,
+        articles: []
+    });
 
     useEffect(() => {
         fetchForecastWeatherData(ville).then(() => console.log("Recupération ForecastWeatherData dans resultats OK \n"));
+        fetchActualites(ville).then((data) => {
+            console.log("Recupération des actualités dans resultats OK \n");
+            setNewsData(data);
+        });
     }, []);
 
     const fetchForecastWeatherData = async (ville: Ville): Promise<void> => {
@@ -36,14 +45,21 @@ const Resultats = ({route}: any) => {
         }));
     };
 
+    const fetchActualites = async (ville: Ville): Promise<NewsData> => {
+        const response = await fetch(`${NEWS_API_URL}/everything?q=${ville.name}&from=2023-05-20&sortBy=publishedAt&apiKey=${NEWS_API_KEY}`);
+        const data = await response.json();
+
+        return data;
+    };
+
     const renderComponent = () => {
         switch (activeTab) {
             case 'actualites':
-                return <Actualite/>;
+                return <Actualite ville={ville} newsData={newsData} />;
             case 'detailsVille':
-                return <DetailsVille ville={ville}/>;
+                return <DetailsVille ville={ville} />;
             default:
-                return <Previsions forecast={forecastData} weatherData={weatherData}/>;
+                return <Previsions forecast={forecastData} weatherData={weatherData} />;
         }
     };
 

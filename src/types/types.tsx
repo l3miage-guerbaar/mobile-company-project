@@ -111,3 +111,28 @@ export interface ForecastData {
     list: Weather[];
     message: number;
 }
+
+export interface Article {
+    source: {
+        id: string | null;
+        name: string;
+    };
+    author: string;
+    title: string;
+    description: string;
+    url: string;
+    urlToImage: string;
+    publishedAt: string;
+    content: string;
+}
+
+export interface NewsData {
+    status: string;
+    totalResults: number;
+    articles: Article[];
+}
+
+export interface FavorisItem {
+    ville: Ville;
+    weatherData: WeatherData | null;
+}

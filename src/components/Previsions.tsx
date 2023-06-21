@@ -93,11 +93,14 @@ const Previsions = (previsionProps: PrevisionProps) => {
                     weekday: 'long',
                     day: 'numeric',
                     month: 'long',
+                    hour: 'numeric',
+                    minute: 'numeric',
                   })}
                 </Text>
                 <Text style={styles.forecastTemperature}>
                   {Math.round(weather.main.temp)}°C
                 </Text>
+
                 <Text style={styles.forecastDescription}>
                   {weather.weather[0].description}
                 </Text>
@@ -167,7 +170,6 @@ const styles = StyleSheet.create({
   temperature: {
     fontSize: 36,
     fontWeight: 'bold',
-    marginBottom: 16,
   },
   parameterLabel: {
     fontSize: 16,
@@ -200,11 +202,16 @@ const styles = StyleSheet.create({
   forecastTemperature: {
     flex: 1,
     fontSize: 16,
-    marginBottom: 4,
+    position: "absolute",
+    bottom: 10,
+    marginLeft: 10,
   },
   forecastDescription: {
     flex: 1,
     fontSize: 16,
+    position: "absolute",
+    bottom: 10,
+    marginLeft: 100,
   },
   selectedForecastItem: {
     backgroundColor: 'lightblue',

@@ -1,21 +1,19 @@
 import React from 'react';
-import {Text, View} from 'react-native';
-import {Ville} from "../types/types";
-import MapView, { Marker } from 'react-native-maps';
+import { Text, View } from 'react-native';
+import { Ville } from "../types/types";
 
 interface DetailsVilleProps {
     ville: Ville;
 }
 
 const DetailsVille = (detailsVilleProps: DetailsVilleProps) => {
-
-    const latitude = detailsVilleProps.ville.latitude;
-    const longitude = detailsVilleProps.ville.longitude;
+    const { name, country, population } = detailsVilleProps.ville;
 
     return (
         <View>
-            <Text>{detailsVilleProps.ville.name}</Text>
-
+            <Text>Name: {name}</Text>
+            <Text>Country: {country}</Text>
+            <Text>Population: {population}</Text>
         </View>
     );
 };

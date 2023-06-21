@@ -20,3 +20,6 @@ export const NINJA_API_CITY = {
         'X-Api-Key': NINJA_API_CITY_KEY,
     }
 };
+
+export const NEWS_API_KEY = "951446d540854481957dbfcd3ca8006c"
+export const NEWS_API_URL = "https://newsapi.org/v2/"
