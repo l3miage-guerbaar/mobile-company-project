@@ -46,9 +46,13 @@ const Resultats = ({ route }: any) => {
     };
 
     const fetchActualites = async (ville: Ville): Promise<NewsData> => {
-        const response = await fetch(`${NEWS_API_URL}/everything?q=${ville.name}&from=2023-05-20&sortBy=publishedAt&apiKey=${NEWS_API_KEY}`);
-        const data = await response.json();
-
+        const today = new Date();
+        const dd = String(today.getDate()).padStart(2, '0');
+        const mm = String(today.getMonth() ).padStart(2, '0'); //January is 0!
+        const yyyy = today.getFullYear();
+        const today_format = yyyy + "-" + mm + '-' + dd;
+        const response = await fetch(`${NEWS_API_URL}/everything?q=${ville.name}&from=${today_format}&sortBy=publishedAt&apiKey=${NEWS_API_KEY}`);
+        const data = await response?.json();
         return data;
     };
 

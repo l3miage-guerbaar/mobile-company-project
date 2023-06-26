@@ -45,7 +45,7 @@ const Accueil = ({ navigation }: PropsWithChildren<any>): JSX.Element => {
     };
 
     const fetchWeatherForAllVilles = async (villes: Ville[]): Promise<void> => {
-        const promises = villes.map((ville) =>
+        const promises = villes?.map((ville) =>
             fetchWeatherData(ville).catch((error) => {
                 console.log(`Échec de la récupération des données météo pour ${ville.name} : ${error}`);
             })
@@ -83,7 +83,7 @@ const Accueil = ({ navigation }: PropsWithChildren<any>): JSX.Element => {
 
         if (isFavorite) {
             setFavoriteVilles((prevFavoriteVilles) =>
-                prevFavoriteVilles.filter((item) => item.ville !== ville)
+                prevFavoriteVilles?.filter((item) => item.ville !== ville)
             );
         } else {
             setFavoriteVilles((prevFavoriteVilles) => [...prevFavoriteVilles, favorisItem]);
@@ -126,7 +126,7 @@ const Accueil = ({ navigation }: PropsWithChildren<any>): JSX.Element => {
                         <Image
                             style={styles.weatherIcon}
                             source={{
-                                uri: `https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`,
+                                uri: `https://openweathermap.org/img/wn/${weatherData?.weather[0].icon}@2x.png`,
                             }}
                         />
                         <View style={styles.tempContainer}>
@@ -155,7 +155,7 @@ const Accueil = ({ navigation }: PropsWithChildren<any>): JSX.Element => {
             <FlatList
                 data={villes}
                 renderItem={({ item }) => renderVilleItem(item)}
-                keyExtractor={(item: Ville) => item.name}
+                keyExtractor={(item: Ville) => item?.name}
                 numColumns={2}
                 decelerationRate="fast"
             />

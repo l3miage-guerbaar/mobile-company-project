@@ -79,7 +79,7 @@ const Previsions = (previsionProps: PrevisionProps) => {
           )}
 
           <Text style={styles.forecastTitle}>Prévisions des prochains jours</Text>
-          {previsionProps.forecast.list.map((weather: WeatherData, index: number) => (
+          {previsionProps.forecast.list?.map((weather: WeatherData, index: number) => (
               <TouchableOpacity
                   key={index}
                   style={[

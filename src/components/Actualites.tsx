@@ -15,9 +15,13 @@ const Actualite = (props: ActualiteProps) => {
         <View style={styles.container}>
             <Text style={styles.pageTitle}>Actualités de {ville.name}</Text>
             <ScrollView>
-                {articles.map((article, index) => (
+                {articles?.map((article, index) => (
                     <View key={index} style={styles.card}>
-                        <Image source={{ uri: article.urlToImage }} style={styles.image} resizeMode="cover" />
+                        <Image
+                            source={{ uri: article?.urlToImage || 'https://example.com/fallback-image.jpg' }}
+                            style={styles.image}
+                            resizeMode="cover"
+                        />
                         <View style={styles.contentContainer}>
                             <Text style={styles.title}>{article.title}</Text>
                             <Text style={styles.author}>Auteur: {article.author}</Text>

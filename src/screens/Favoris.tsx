@@ -12,7 +12,7 @@ const Favoris = ({ navigation, route }: PropsWithChildren<any>): JSX.Element => 
     const [favoriteVillesList, setFavoriteVillesList] = useState<FavorisItem[]>(favoriteVilles);
 
     const handleDeleteVille = (ville: Ville): void => {
-        const updatedFavoriteVilles = favoriteVillesList.filter(
+        const updatedFavoriteVilles = favoriteVillesList?.filter(
             (favVille) => favVille.ville !== ville
         );
         setFavoriteVillesList(updatedFavoriteVilles);
@@ -41,7 +41,7 @@ const Favoris = ({ navigation, route }: PropsWithChildren<any>): JSX.Element => 
             <FlatList
                 data={favoriteVillesList}
                 renderItem={({ item }) => renderVilleItem(item)}
-                keyExtractor={(item: FavorisItem) => item.ville.name}
+                keyExtractor={(item: FavorisItem) => item?.ville.name}
             />
         </View>
     );
